@@ -5,3 +5,6 @@
 
 A simple, easy-to-use iOS banner alert that can be displayed in multiple positions and directions.
 
+## How to use (basic)
+
+1. Import the file from ./mrm-banner-alert/MRMBannerAlert/MRMBannerAlert/MRMBannerAlert.swift
