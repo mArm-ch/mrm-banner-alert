@@ -36,7 +36,7 @@ enum MRMBannerAlertPosition {
             return CGRect(x: margin, y: -(bannerSize.height + margin),
                           width: bannerSize.width, height: bannerSize.height)
         case .topRight:
-            return CGRect(x: screen.width, y: margin,
+            return CGRect(x: screen.width, y: margin + MRMBannerAlertConfig.securityTopMargin,
                           width: bannerSize.width, height: bannerSize.height)
         case .right:
             return CGRect(x: screen.width, y: (screen.height / 2) - (bannerSize.height / 2),
@@ -54,7 +54,7 @@ enum MRMBannerAlertPosition {
             return CGRect(x: -screen.width, y: (screen.height / 2) - (bannerSize.height / 2),
                           width: bannerSize.width, height: bannerSize.height)
         case .topLeft:
-            return CGRect(x: -screen.width, y: margin,
+            return CGRect(x: -screen.width, y: margin + MRMBannerAlertConfig.securityTopMargin,
                           width: bannerSize.width, height: bannerSize.height)
         }
     }
@@ -73,7 +73,7 @@ enum MRMBannerAlertPosition {
     func popin(banner: MRMBannerAlert, screen: CGRect, config: MRMBannerAlertConfig) {
         switch self {
         case .top:
-            banner.frame.origin.y = config.margin
+            banner.frame.origin.y = config.margin + MRMBannerAlertConfig.securityTopMargin
         case .topRight:
             banner.frame.origin.x = config.margin
         case .right:

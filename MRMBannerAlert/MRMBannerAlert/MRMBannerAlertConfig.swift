@@ -14,15 +14,20 @@ struct MRMBannerAlertConfig {
     /// Pre-defined available themes enum
     ///
     public enum Theme {
-        case white_darkGrey
-        case white_grey
-        case darkGrey_white
-        case grey_white
+        case white_darkGray
+        case white_gray
+        case white_lightGray
+        case darkGray_white
+        case gray_white
+        case lightGray_white
+        case black_white
     }
     
     public init() {}
     
-    var titleColor: UIColor                 = .darkGray
+    static let securityTopMargin                   = 24.0
+    
+    var titleColor: UIColor                 = .black
     var titleFont: UIFont                   = .boldSystemFont(ofSize: 17.0)
     var titleAlignment: NSTextAlignment     = .left
     
@@ -59,23 +64,35 @@ struct MRMBannerAlertConfig {
     /// - Parameter theme: The theme to use
     /// - Returns: `MRMBannerAlertConfig`
     ///
-    static func themed(theme: MRMBannerAlertConfig.Theme) -> MRMBannerAlertConfig {
+    static func themed(_ theme: MRMBannerAlertConfig.Theme) -> MRMBannerAlertConfig {
         var config = MRMBannerAlertConfig()
         switch theme {
-        case .white_darkGrey:
+        case .white_darkGray:
             config.titleColor = .darkGray
             config.messageColor = .darkGray
-        case .white_grey:
+        case .white_gray:
             config.titleColor = .gray
             config.messageColor = .gray
-        case .darkGrey_white:
+        case .white_lightGray:
+            config.titleColor = .lightGray
+            config.messageColor = .lightGray
+            config.backgroundColor = .white
+        case .darkGray_white:
             config.titleColor = .white
             config.messageColor = .white
             config.backgroundColor = .darkGray
-        case .grey_white:
+        case .gray_white:
             config.titleColor = .white
             config.messageColor = .white
             config.backgroundColor = .gray
+        case .lightGray_white:
+            config.titleColor = .white
+            config.messageColor = .white
+            config.backgroundColor = .lightGray
+        case .black_white:
+            config.titleColor = .white
+            config.messageColor = .white
+            config.backgroundColor = .black
         }
     
         return config
