@@ -8,6 +8,14 @@ A simple, easy-to-use iOS banner alert that can be displayed in multiple positio
 ## :notebook: How to use (basic)
 
 1. Import the file from ./mrm-banner-alert/MRMBannerAlert/MRMBannerAlert/MRMBannerAlert.swift
+2. Call the ```show()``` static method :
+```swift
+@IBAction func showBannerAlert(_ sender: Any?) {
+        MRMBannerAlert.show(title: "Banner title",
+                            message: "Banner multiline text",
+                            start: .top)
+}
+```
 
 ## :copyright: License
 
