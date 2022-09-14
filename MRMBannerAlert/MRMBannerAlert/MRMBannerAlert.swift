@@ -16,9 +16,6 @@ import UIKit
 ///
 class MRMBannerAlert: UIView {
     
-    /// Default banner configuration
-    static var defaultConfig: MRMBannerAlertConfig { return MRMBannerAlertConfig() }
-    
     private(set) var title: String
     private(set) var message: String
     private(set) var config: MRMBannerAlertConfig
