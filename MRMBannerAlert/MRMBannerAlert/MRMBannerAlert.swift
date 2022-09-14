@@ -14,11 +14,66 @@ import UIKit
 /// - Date: 2022.09.11
 /// - Version: 1.0.0
 ///
-class MRMBannerAlert {
+class MRMBannerAlert: UIView {
     
     /// Default banner configuration
-    static var defaultConfig: Config { return MRMBannerAlert.Config() }
+    static var defaultConfig: MRMBannerAlert.Config { return MRMBannerAlert.Config() }
     
+    private(set) var title: String
+    private(set) var message: String
+    private(set) var config: MRMBannerAlert.Config
+    
+    private var viewInitialized: Bool = false
+    private var screen: CGRect
+    private var size: CGSize
+    
+    private var titleLabel: UILabel!
+    private var messageLabel: UILabel!
+    
+    var start: MRMBannerAlert.Position {
+        didSet {
+            if self.viewInitialized {
+                self.frame = start.frame(margin: config.margin,
+                                         bannerSize: self.size,
+                                         screen: self.screen)
+            }
+        }
+    }
+    
+    
+    
+    // --------------------------------------------------------
+    // MARK: - View life cycle
+    
+    init(title: String,
+         message: String,
+         start: MRMBannerAlert.Position,
+         config: MRMBannerAlert.Config = MRMBannerAlert.Config()) {
+    
+        self.title = title
+        self.message = message
+        self.config = config
+        self.start = start
+        
+        // Calculate some sizes
+        self.screen = UIScreen.main.bounds
+        self.size = CGSize(width: self.screen.width - (2 * self.config.margin),
+                           height: 0.0)
+        
+        // Flag init
+        self.viewInitialized = true
+        
+        super.init(frame: CGRect.zero)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented. ")
+    }
+    
+    
+    
+    // --------------------------------------------------------
+    // MARK: - Display method(s)
     
     /// Show a banner
     ///
@@ -45,75 +100,46 @@ class MRMBannerAlert {
                      didShowCallback: (() -> Void)? = nil,
                      didHideCallback: (() -> Void)? = nil) {
         
-        // Calculate some sizes
-        let screen = UIScreen.main.bounds
-        var bannerSize = CGSize(width: screen.width - (2 * config.margin),
-                                height: 0.0)
+        let banner = MRMBannerAlert(title: title, message: message, start: start, config: config)
+        banner.show(in: controller, didShowCallback: didShowCallback, didHideCallback: didHideCallback)
+    }
+    
+    func show(in controller: UIViewController? = nil,
+              didShowCallback: (() -> Void)? = nil,
+              didHideCallback: (() -> Void)? = nil) {
         
-        // Create title label
-        let titleLabel = UILabel(frame: CGRect(x: config.padding,
-                                               y: config.padding,
-                                               width: bannerSize.width - (2 * config.padding),
-                                               height: 24.0))
-        titleLabel.text = title
-        titleLabel.textColor = config.titleColor
-        titleLabel.textAlignment = config.titleAlignment
-        titleLabel.font = config.titleFont
-        titleLabel.numberOfLines = 0
-        titleLabel.sizeToFit()
-        
-        // Create message label
-        let messageLabel = UILabel(frame: CGRect(x: config.padding,
-                                                 y: titleLabel.frame.maxY + config.padding,
-                                                 width: bannerSize.width - (2 * config.padding),
-                                                 height: 24.0))
-        messageLabel.text = message
-        messageLabel.textColor = config.messageColor
-        messageLabel.textAlignment = config.messageAlignment
-        messageLabel.font = config.messageFont
-        messageLabel.numberOfLines = 0
-        messageLabel.sizeToFit()
+        // Create alert elements
+        self.createTitleLabel()
+        self.createMessageLabel()
         
         // Calculate final height
-        bannerSize.height = titleLabel.frame.height +
-                            config.padding +
-                            messageLabel.frame.height +
-                            (2 * config.padding)
+        self.size.height = self.titleLabel.frame.height + self.config.padding +
+                           self.messageLabel.frame.height + (2 * self.config.padding)
         
-        // Setup banner view
-        var banner = UIView(frame: start.frame(margin: config.margin,
-                                               bannerSize: bannerSize,
-                                               screen: screen))
-        banner.addSubview(titleLabel)
-        banner.addSubview(messageLabel)
-        banner.backgroundColor = config.backgroundColor
-        banner.layer.cornerRadius = config.cornerRadius
-        banner.layer.shadowColor = config.shadowColor.cgColor
-        banner.layer.shadowOpacity = config.shadowOpacity
-        banner.layer.shadowOffset = config.shadowOffset
-        banner.layer.shadowRadius = config.shadowRadius
+        // Setup view
+        self.setupView()
         
         // Gets valid view controller
         var parentController = controller
         if parentController == nil {
-            parentController = self.topViewController()
+            parentController = MRMBannerAlert.topViewController()
         }
         
         // Display the banner
         if let parentController = parentController {
-            parentController.view.addSubview(banner)
+            parentController.view.addSubview(self)
             // TODO: Add animation from config
-            UIView.animate(withDuration: config.popinDuration,
+            UIView.animate(withDuration: self.config.popinDuration,
                            delay: 0.0,
-                           options: config.popinAnimation) {
-                start.popin(banner: &banner, screen: screen, config: config)
+                           options: self.config.popinAnimation) {
+                self.start.popin(banner: self, screen: self.screen, config: self.config)
             } completion: { done in
                 didShowCallback?()
                 // TODO: Add animation from config
-                UIView.animate(withDuration: config.popoutDuration,
-                               delay: config.alertDuration,
-                               options: config.popoutAnimation) {
-                    start.popout(banner: &banner, screen: screen, config: config)
+                UIView.animate(withDuration: self.config.popoutDuration,
+                               delay: self.config.alertDuration,
+                               options: self.config.popoutAnimation) {
+                    self.start.popout(banner: self, screen: self.screen, config: self.config)
                 } completion: { done in
                     didHideCallback?()
                 }
@@ -121,6 +147,47 @@ class MRMBannerAlert {
         } else {
             print("\(Date()) - 🏳️‍🌈 MRMBannerAlert - Sorry, no valid parentController available for display")
         }
+    }
+    
+
+    private func createTitleLabel() {
+        self.titleLabel = UILabel(frame: CGRect(x: self.config.padding,
+                                                y: self.config.padding,
+                                                width: self.size.width - (2 * config.padding),
+                                                height: 24.0))
+        self.titleLabel.text = self.title
+        self.titleLabel.textColor = self.config.titleColor
+        self.titleLabel.textAlignment = self.config.titleAlignment
+        self.titleLabel.font = self.config.titleFont
+        self.titleLabel.numberOfLines = 0
+        self.titleLabel.sizeToFit()
+    }
+    
+    private func createMessageLabel() {
+        self.messageLabel = UILabel(frame: CGRect(x: config.padding,
+                                                  y: titleLabel.frame.maxY + config.padding,
+                                                  width: self.size.width - (2 * config.padding),
+                                                  height: 24.0))
+        self.messageLabel.text = self.message
+        self.messageLabel.textColor = self.config.messageColor
+        self.messageLabel.textAlignment = self.config.messageAlignment
+        self.messageLabel.font = self.config.messageFont
+        self.messageLabel.numberOfLines = 0
+        self.messageLabel.sizeToFit()
+    }
+    
+    private func setupView() {
+        self.frame = self.start.frame(margin: self.config.margin,
+                                      bannerSize: self.size,
+                                      screen: self.screen)
+        self.addSubview(self.titleLabel)
+        self.addSubview(self.messageLabel)
+        self.backgroundColor = self.config.backgroundColor
+        self.layer.cornerRadius = self.config.cornerRadius
+        self.layer.shadowColor = self.config.shadowColor.cgColor
+        self.layer.shadowOpacity = self.config.shadowOpacity
+        self.layer.shadowOffset = self.config.shadowOffset
+        self.layer.shadowRadius = self.config.shadowRadius
     }
     
     /// Retrieve the most top visible view controller
@@ -209,7 +276,7 @@ class MRMBannerAlert {
         /// - Parameter config: The banner configuration
         /// - Returns: `Void`
         ///
-        func popin(banner: inout UIView, screen: CGRect, config: MRMBannerAlert.Config) {
+        func popin(banner: MRMBannerAlert, screen: CGRect, config: MRMBannerAlert.Config) {
             switch self {
             case .top:
                 banner.frame.origin.y = config.margin
@@ -240,7 +307,7 @@ class MRMBannerAlert {
         /// - Parameter config: The banner configuration
         /// - Returns: `Void`
         ///
-        func popout(banner: inout UIView, screen: CGRect, config: MRMBannerAlert.Config) {
+        func popout(banner: MRMBannerAlert, screen: CGRect, config: MRMBannerAlert.Config) {
             switch self {
             case .top:
                 banner.frame.origin.y = -(banner.frame.height + config.margin)
