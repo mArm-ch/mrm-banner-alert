@@ -17,11 +17,11 @@ import UIKit
 class MRMBannerAlert: UIView {
     
     /// Default banner configuration
-    static var defaultConfig: MRMBannerAlert.Config { return MRMBannerAlert.Config() }
+    static var defaultConfig: MRMBannerAlertConfig { return MRMBannerAlertConfig() }
     
     private(set) var title: String
     private(set) var message: String
-    private(set) var config: MRMBannerAlert.Config
+    private(set) var config: MRMBannerAlertConfig
     
     private var viewInitialized: Bool = false
     private var screen: CGRect
@@ -48,7 +48,7 @@ class MRMBannerAlert: UIView {
     init(title: String,
          message: String,
          start: MRMBannerAlert.Position,
-         config: MRMBannerAlert.Config = MRMBannerAlert.Config()) {
+         config: MRMBannerAlertConfig = MRMBannerAlertConfig()) {
     
         self.title = title
         self.message = message
@@ -95,7 +95,7 @@ class MRMBannerAlert: UIView {
     static func show(title: String,
                      message: String,
                      start: MRMBannerAlert.Position,
-                     config: MRMBannerAlert.Config = MRMBannerAlert.Config(),
+                     config: MRMBannerAlertConfig = MRMBannerAlertConfig(),
                      in controller: UIViewController? = nil,
                      didShowCallback: (() -> Void)? = nil,
                      didHideCallback: (() -> Void)? = nil) {
@@ -276,7 +276,7 @@ class MRMBannerAlert: UIView {
         /// - Parameter config: The banner configuration
         /// - Returns: `Void`
         ///
-        func popin(banner: MRMBannerAlert, screen: CGRect, config: MRMBannerAlert.Config) {
+        func popin(banner: MRMBannerAlert, screen: CGRect, config: MRMBannerAlertConfig) {
             switch self {
             case .top:
                 banner.frame.origin.y = config.margin
@@ -307,7 +307,7 @@ class MRMBannerAlert: UIView {
         /// - Parameter config: The banner configuration
         /// - Returns: `Void`
         ///
-        func popout(banner: MRMBannerAlert, screen: CGRect, config: MRMBannerAlert.Config) {
+        func popout(banner: MRMBannerAlert, screen: CGRect, config: MRMBannerAlertConfig) {
             switch self {
             case .top:
                 banner.frame.origin.y = -(banner.frame.height + config.margin)
@@ -329,35 +329,5 @@ class MRMBannerAlert: UIView {
         }
     }
     
-    /// Configuration of a banner alert
-    ///
-    struct Config {
-        public init() {}
-        
-        var titleColor: UIColor                 = .darkGray
-        var titleFont: UIFont                   = .boldSystemFont(ofSize: 17.0)
-        var titleAlignment: NSTextAlignment     = .left
-        
-        var messageColor: UIColor               = .darkGray
-        var messageFont: UIFont                 = .systemFont(ofSize: 16.0)
-        var messageAlignment: NSTextAlignment   = .left
-        
-        var backgroundColor: UIColor            = .white
-        var shadowColor: UIColor                = .gray
-        var shadowOpacity: Float                = 0.3
-        var shadowOffset: CGSize                = CGSize(width: 6.0, height: 6.0)
-        var shadowRadius: CGFloat               = 0.5
-        
-        var cornerRadius: Double                = 8.0
-        var margin: Double                      = 12.0
-        var padding: Double                     = 8.0
-        
-        var popinDuration: TimeInterval         = 0.5
-        var popinAnimation: UIView.AnimationOptions = .curveEaseIn
-        
-        var popoutDuration: TimeInterval        = 0.5
-        var popoutAnimation: UIView.AnimationOptions = .curveEaseOut
-        
-        var alertDuration: TimeInterval         = 2.0
-    }
+    
 }

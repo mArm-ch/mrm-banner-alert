@@ -14,6 +14,7 @@
 		90F255D228CFB1FD005EDBA5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 90F255D128CFB1FD005EDBA5 /* Assets.xcassets */; };
 		90F255D528CFB1FD005EDBA5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 90F255D328CFB1FD005EDBA5 /* LaunchScreen.storyboard */; };
 		90F255E228CFB290005EDBA5 /* MRMBannerAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90F255E128CFB290005EDBA5 /* MRMBannerAlert.swift */; };
+		90F255E428D24535005EDBA5 /* MRMBannerAlertConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90F255E328D24535005EDBA5 /* MRMBannerAlertConfig.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		90F255D428CFB1FD005EDBA5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		90F255D628CFB1FD005EDBA5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		90F255E128CFB290005EDBA5 /* MRMBannerAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MRMBannerAlert.swift; sourceTree = "<group>"; };
+		90F255E328D24535005EDBA5 /* MRMBannerAlertConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MRMBannerAlertConfig.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +99,7 @@
 			isa = PBXGroup;
 			children = (
 				90F255E128CFB290005EDBA5 /* MRMBannerAlert.swift */,
+				90F255E328D24535005EDBA5 /* MRMBannerAlertConfig.swift */,
 			);
 			path = MRMBannerAlert;
 			sourceTree = "<group>";
@@ -182,6 +185,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				90F255CD28CFB1F0005EDBA5 /* ViewController.swift in Sources */,
+				90F255E428D24535005EDBA5 /* MRMBannerAlertConfig.swift in Sources */,
 				90F255E228CFB290005EDBA5 /* MRMBannerAlert.swift in Sources */,
 				90F255C928CFB1F0005EDBA5 /* AppDelegate.swift in Sources */,
 				90F255CB28CFB1F0005EDBA5 /* SceneDelegate.swift in Sources */,
