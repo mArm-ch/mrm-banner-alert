@@ -71,7 +71,8 @@ class ViewController: UIViewController {
 
     @IBAction func top(_ sender: Any?) {
         MRMBannerAlert.show(title: ".top (theme: none)",
-                            message: self.message, start: .top)
+                            message: self.message,
+                            start: .top)
     }
     
     @IBAction func topRight(_ sender: Any?) {
