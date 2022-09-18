@@ -23,7 +23,6 @@ enum MRMBannerAlertPosition {
     /// to the position
     ///
     /// - Author: David Ansermot
-    /// - Date: 2022.09.13
     ///
     /// - Parameter margin: The margin of the banner
     /// - Parameter bannerSize: The banner size
@@ -59,11 +58,9 @@ enum MRMBannerAlertPosition {
         }
     }
     
-    
     /// Pop in a banner
     ///
     /// - Author: David Ansermot
-    /// - Date: 2022.09.23
     ///
     /// - Parameter banner: The banner to pop
     /// - Parameter screen: The screen bounds
@@ -94,7 +91,6 @@ enum MRMBannerAlertPosition {
     /// Pop out a banner
     ///
     /// - Author: David Ansermot
-    /// - Date: 2022.09.23
     ///
     /// - Parameter banner: The banner to pop
     /// - Parameter screen: The screen bounds

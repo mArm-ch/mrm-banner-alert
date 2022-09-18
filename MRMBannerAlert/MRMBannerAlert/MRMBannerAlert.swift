@@ -2,7 +2,7 @@
 //  MRMBannerAlert.swift
 //  MRMBannerAlert
 //
-//  Created by David Ansermot on 12.09.22.
+//  Created by David Ansermot on 11.09.22.
 //
 
 import UIKit
@@ -11,7 +11,6 @@ import UIKit
 ///
 ///
 /// - Author: David Ansermot
-/// - Date: 2022.09.11
 /// - Version: 1.0.0
 ///
 class MRMBannerAlert: UIView {
@@ -27,6 +26,11 @@ class MRMBannerAlert: UIView {
     private var titleLabel: UILabel!
     private var messageLabel: UILabel!
     
+    /// Start position of the banner
+    ///
+    /// If the view is already initialized,
+    /// changing the position will re-position the banner
+    ///
     var start: MRMBannerAlertPosition {
         didSet {
             if self.viewInitialized {
@@ -42,6 +46,17 @@ class MRMBannerAlert: UIView {
     // --------------------------------------------------------
     // MARK: - View life cycle
     
+    
+    /// Initialize the banner
+    ///
+    /// - Author: David Ansermot
+    ///
+    /// - Parameter title: The title displayed in the banner
+    /// - Parameter message: The message displayed in the banner
+    /// - Parameter start: The start position of the banner (off scene)
+    /// - Parameter config: Configuration of the banner *(default: `MRMBannerAlertConfig()`)*
+    /// - Returns: `MRMBannerAlert`
+    ///
     init(title: String,
          message: String,
          start: MRMBannerAlertPosition,
@@ -63,6 +78,8 @@ class MRMBannerAlert: UIView {
         super.init(frame: CGRect.zero)
     }
     
+    /// Optional initialized (NOT IMPLEMENTED)
+    ///
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented. ")
     }
@@ -75,7 +92,6 @@ class MRMBannerAlert: UIView {
     /// Show a banner
     ///
     /// - Author: David Ansermot
-    /// - Date: 2022.09.11
     ///
     /// - Important: `static`
     ///
@@ -101,6 +117,16 @@ class MRMBannerAlert: UIView {
         banner.show(in: controller, didShowCallback: didShowCallback, didHideCallback: didHideCallback)
     }
     
+    
+    /// Show the current banner
+    ///
+    /// - Author: David Ansermot
+    ///
+    /// - Parameter in: The controller to display in. *(default: `nil`, means it will take the top view controller)*
+    /// - Parameter didShowCallback: Callback when the banner alert is shown *(default: `nil`)*
+    /// - Parameter didHideCallback: Callback when the banner alert is hidden *(default: `nil`)*
+    /// - Returns: `Void`
+    ///
     func show(in controller: UIViewController? = nil,
               didShowCallback: (() -> Void)? = nil,
               didHideCallback: (() -> Void)? = nil) {
@@ -146,7 +172,15 @@ class MRMBannerAlert: UIView {
         }
     }
     
-
+    
+    /// Create the title label and setup
+    ///
+    /// - Author: David Ansermot
+    ///
+    /// - Important: `private`
+    ///
+    /// - Returns: `Void`
+    ///
     private func createTitleLabel() {
         self.titleLabel = UILabel(frame: CGRect(x: self.config.padding,
                                                 y: self.config.padding,
@@ -160,6 +194,14 @@ class MRMBannerAlert: UIView {
         self.titleLabel.sizeToFit()
     }
     
+    /// Create the title label and setup
+    ///
+    /// - Author: David Ansermot
+    ///
+    /// - Important: `private`
+    ///
+    /// - Returns: `Void`
+    ///
     private func createMessageLabel() {
         self.messageLabel = UILabel(frame: CGRect(x: config.padding,
                                                   y: titleLabel.frame.maxY + config.padding,
@@ -173,6 +215,14 @@ class MRMBannerAlert: UIView {
         self.messageLabel.sizeToFit()
     }
     
+    /// Setup the banner view itself
+    ///
+    /// - Author: David Ansermot
+    ///
+    /// - Important: `private`
+    ///
+    /// - Returns: `Void`
+    ///
     private func setupView() {
         self.frame = self.start.frame(margin: self.config.margin,
                                       bannerSize: self.size,
@@ -190,11 +240,10 @@ class MRMBannerAlert: UIView {
     /// Retrieve the most top visible view controller
     ///
     /// - Author: David Ansermot
-    /// - Date: 2022.09.12
     ///
     /// - Important: `internal`
     ///
-    /// - Returns: `UIViewControoler`
+    /// - Returns: `UIViewController`
     ///
     internal static func topViewController() -> UIViewController? {
         let keyWindow = UIApplication.shared.windows.filter {$0.isKeyWindow}.first
@@ -207,6 +256,5 @@ class MRMBannerAlert: UIView {
         } else {
             return nil
         }
-        
     }
 }
