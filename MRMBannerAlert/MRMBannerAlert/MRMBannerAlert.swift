@@ -26,6 +26,8 @@ class MRMBannerAlert: UIView {
     private var titleLabel: UILabel!
     private var messageLabel: UILabel!
     
+    private var hideCallback: (() -> Void)?
+    
     /// Start position of the banner
     ///
     /// If the view is already initialized,
@@ -151,20 +153,17 @@ class MRMBannerAlert: UIView {
         // Display the banner
         if let parentController = parentController {
             parentController.view.addSubview(self)
-            // TODO: Add animation from config
             UIView.animate(withDuration: self.config.popinDuration,
                            delay: 0.0,
                            options: self.config.popinAnimation) {
                 self.start.popin(banner: self, screen: self.screen, config: self.config)
             } completion: { done in
                 didShowCallback?()
-                // TODO: Add animation from config
-                UIView.animate(withDuration: self.config.popoutDuration,
-                               delay: self.config.alertDuration,
-                               options: self.config.popoutAnimation) {
-                    self.start.popout(banner: self, screen: self.screen, config: self.config)
-                } completion: { done in
-                    didHideCallback?()
+                if self.config.alertDuration > 0 {
+                    self.hideBanner(delay: self.config.alertDuration,
+                                    didHideCallback: didHideCallback)
+                } else {
+                    self.hideCallback = didHideCallback
                 }
             }
         } else {
@@ -172,6 +171,31 @@ class MRMBannerAlert: UIView {
         }
     }
     
+    
+    /// Hides the banner
+    ///
+    /// - Author: David Ansermot
+    ///
+    /// - Important: `private`
+    ///
+    /// - Parameter delay: The delay before hide *(default: 0.0)*
+    /// - Parameter didHideCallback: Callback to know when banner is hidden *(default: `nil`)*
+    /// - Returns: `Void`
+    ///
+    private func hideBanner(delay: TimeInterval = 0.0, didHideCallback: (() -> Void)? = nil) {
+        UIView.animate(withDuration: self.config.popoutDuration,
+                       delay: delay,
+                       options: self.config.popoutAnimation) {
+            self.start.popout(banner: self, screen: self.screen, config: self.config)
+        } completion: { done in
+            didHideCallback?()
+        }
+    }
+    
+    
+    
+    // --------------------------------------------------------
+    // MARK: - Setup methods
     
     /// Create the title label and setup
     ///
@@ -237,11 +261,35 @@ class MRMBannerAlert: UIView {
         self.layer.shadowRadius = self.config.shadowRadius
     }
     
+    
+    
+    // --------------------------------------------------------
+    // MARK: - View events
+    
+    
+    /// Hides the banner on click
+    ///
+    /// - Author: David Ansermot
+    ///
+    /// - Parameter touches: Set of touches
+    /// - Parameter event: The event
+    /// - Returns: `Void`
+    ///
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if touches.count >= 1 {
+            self.hideBanner(didHideCallback: self.hideCallback)
+        }
+    }
+    
+    
+    // --------------------------------------------------------
+    // MARK: - Helper methods
+    
     /// Retrieve the most top visible view controller
     ///
     /// - Author: David Ansermot
     ///
-    /// - Important: `internal`
+    /// - Important: `internal`, `static`
     ///
     /// - Returns: `UIViewController`
     ///
