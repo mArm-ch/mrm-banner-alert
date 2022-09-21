@@ -21,6 +21,29 @@ A simple, easy-to-use iOS banner alert that can be displayed in multiple positio
 
 
 ## :wrench: Configuration
+You can customize the layout of the banner by instantiate a config object and customize it.
+
+| Property      | Type          | Default value | Description    | 
+| ------------- | ------------- | ------------- | ------------- |
+| titleColor  | UIColor  | .black  |    |
+| titleFont  | UIFont  | .boldSystemFont(ofSize: 17.0)  |    |
+| titleAlignment  | NSTextAlignment  | .left  |    |
+| messageColor  | UIColor  | .black  |    |
+| messageFont  | UIFont  | .systemFont(ofSize: 16.0)  |    |
+| messageAlignment  | NSTextAlignment  | .left  |    |
+| backgroundColor  | UIColor  | .white  |    |
+| shadowColor  | UIColor  | .gray  |    |
+| shadowOpacity  | Float  | 0.3  |    |
+| shadowOffset  | CGSize  | CGSize(width: 6.0, height: 6.0)  |    |
+| shadowRadius  | CGFloat  | 0.5  |    |
+| cornerRadius  | Double  | 8.0  |    |
+| margin  | Double  | 12.0  |    |
+| padding  | Double  | 8.0  |    |
+| popinDuration  | TimeInterval  | 0.5  |    |
+| popinAnimation  | UIView.AnimationOptions  | .curveEaseIn  |    |
+| popoutDuration  | TimeInterval  | 0.5  |    |
+| popoutAnimation  | UIView.AnimationOptions  | .curveEaseOut  |    |
+| alertDuration  | TimeInterval  | 2.0  |    |
 
 ## :art: Themes
 There are pre-configured themes already available in the banner config. <br />
