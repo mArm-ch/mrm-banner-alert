@@ -3,7 +3,18 @@
 <img align="left" alt="Version : 1.0.0beta" src="https://img.shields.io/badge/Version-1.0.0beta-lightblue.svg" /> <img align="left" alt="Swift : 5" src="https://img.shields.io/badge/Swift-5-blue.svg" /> <img align="left" alt="Licence : MIT" src="https://img.shields.io/badge/Licence-MIT-blue.svg" /> <img align="left" alt="Files : 3" src="https://img.shields.io/badge/Files-3-blue.svg" />
 <br /><br />
 
-A simple, easy-to-use iOS banner alert that can be displayed in multiple positions and directions.
+## Introduction
+
+MRMBannerAlert is Aa simple, easy-to-use iOS banner alert that can be displayed in multiple positions and directions. <br />
+It's Swift made and is provided with pre-defined themes, and is fully customizable.
+
+### :blue_car: Roadmap
+- [ ] Infinite display time
+- [ ] Hide on click
+- [ ] Possibility to choose the popout direction
+- [ ] Add fadein/fadeout
+- [ ] More themes
+- [ ] Gradient backgrounds
 
 ## :notebook: How to use (basic)
 
