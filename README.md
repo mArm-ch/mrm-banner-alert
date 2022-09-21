@@ -17,6 +17,36 @@ A simple, easy-to-use iOS banner alert that can be displayed in multiple positio
 }
 ```
 
+## :notebook_with_decorative_cover: How to use (extended)
+
+
+## :wrench: Configuration
+
+## :art: Themes
+There are pre-configured themes already available in the banner config. <br />
+You can use it by initializing a configuration object : 
+```swift
+let config = MRMBannerAlertConfig.themed(.white_darkGray)
+```
+
+### Themes available 
+```swift
+/// White background with dark gray texts
+case white_darkGray
+/// White background with gray texts
+case white_gray
+/// White background with light gray texts
+case white_lightGray
+/// Dark gray background with white texts
+case darkGray_white
+/// Gray background with white texts
+case gray_white
+/// Light gray background with white texts
+case lightGray_white
+/// Black background with white texts
+case black_white
+```
+
 ## :copyright: License
 
 MIT License
