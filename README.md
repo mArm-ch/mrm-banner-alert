@@ -18,7 +18,7 @@ It's Swift made and is provided with pre-defined themes, and is fully customizab
 
 ## :notebook: How to use (basic)
 
-1. Import the file from ./mrm-banner-alert/MRMBannerAlert/MRMBannerAlert/MRMBannerAlert.swift
+1. Import the file from `./mrm-banner-alert/MRMBannerAlert/MRMBannerAlert/MRMBannerAlert.swift`
 2. Call the ```show()``` static method :
 ```swift
 @IBAction func showBannerAlert(_ sender: Any?) {
@@ -30,6 +30,31 @@ It's Swift made and is provided with pre-defined themes, and is fully customizab
 
 ## :notebook_with_decorative_cover: How to use (extended)
 
+1. Import the file from `./mrm-banner-alert/MRMBannerAlert/MRMBannerAlert/MRMBannerAlert.swift`
+2. Create a `MRMBannerAlertConfig` object to customize your alert 
+```swift
+var config = MRMBannerAlertConfig()
+```
+3. Customize some properties 
+```swift
+config.titleColor = .white
+config.messageColor = .white
+config.backgroundColor = .red
+config.alertDuration = 3.0 
+```
+4. Create a new `MRMBannerAlert` object, and pass it your custom config
+```swift
+let banner = MRMBannerAlert(title: "Demo Alert", 
+                            message: "This is the bannert alert text", 
+                            start: .top, 
+                            config: config)
+```
+5. Finaly, show the banner
+```swift
+banner.show(in: theParentControllerToDisplayIn, 
+            didShowCallback: OptionalClosure, 
+            didHideCallback: OptionalClosure)
+```
 
 ## :wrench: Configuration
 You can customize the layout of the banner by instantiate a config object and customize it.
