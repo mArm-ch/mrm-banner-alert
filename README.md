@@ -9,8 +9,8 @@ MRMBannerAlert is Aa simple, easy-to-use iOS banner alert that can be displayed 
 It's Swift made and is provided with pre-defined themes, and is fully customizable.
 
 ### :blue_car: Roadmap
-- [ ] Infinite display time
-- [ ] Hide on click
+- [X] Infinite display time
+- [X] Hide on click
 - [ ] Possibility to choose the popout direction
 - [ ] Add fadein/fadeout
 - [ ] More themes
@@ -72,6 +72,8 @@ You can customize the layout of the banner by instantiate a config object and cu
 | shadowOpacity  | `Float`  | `0.3`  |    |
 | shadowOffset  | `CGSize`  | `CGSize(width: 6.0, height: 6.0)`  |    |
 | shadowRadius  | `CGFloat`  | `0.5`  |    |
+| borderWidth  | `CGFloat`  | `1.0`  |    |
+| borderColor  | `UIColor`  | `.darkGray`  |    |
 | cornerRadius  | `Double`  | `8.0`  |    |
 | margin  | `Double`  | `12.0`  | Margin **outside** the banner   |
 | padding  | `Double`  | `8.0`  | Padding **inside** the banner   |
