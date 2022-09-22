@@ -89,7 +89,7 @@ class ViewController: UIViewController {
         var config = MRMBannerAlertConfig()
         config.alertDuration = 0
         MRMBannerAlert.show(title: ".top (theme: none)",
-                            message: self.message,
+                            message: "Click to dismiss me, else i'll stay here forever",
                             start: .top,
                             config: config)
     }
@@ -133,7 +133,7 @@ class ViewController: UIViewController {
         MRMBannerAlert.show(title: ".left (theme: grey_white)",
                             message: self.message,
                             start: .left,
-                            config: MRMBannerAlertConfig.themed(.lightGray_white))
+                            end: .right)
     }
     
     @IBAction func topLeft(_ sender: Any?) {

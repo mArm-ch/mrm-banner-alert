@@ -43,6 +43,9 @@ class MRMBannerAlert: UIView {
         }
     }
     
+    /// The end position of the banner
+    ///
+    var end: MRMBannerAlertPosition
     
     
     // --------------------------------------------------------
@@ -56,18 +59,23 @@ class MRMBannerAlert: UIView {
     /// - Parameter title: The title displayed in the banner
     /// - Parameter message: The message displayed in the banner
     /// - Parameter start: The start position of the banner (off scene)
+    /// - Parameter end: The end position of the banner (off scene)
     /// - Parameter config: Configuration of the banner *(default: `MRMBannerAlertConfig()`)*
     /// - Returns: `MRMBannerAlert`
     ///
     init(title: String,
          message: String,
          start: MRMBannerAlertPosition,
+         end: MRMBannerAlertPosition? = nil,
          config: MRMBannerAlertConfig = MRMBannerAlertConfig()) {
     
         self.title = title
         self.message = message
         self.config = config
         self.start = start
+        
+        // If end is not set, copy from start
+        self.end = end ?? start
         
         // Calculate some sizes
         self.screen = UIScreen.main.bounds
@@ -110,12 +118,13 @@ class MRMBannerAlert: UIView {
     static func show(title: String,
                      message: String,
                      start: MRMBannerAlertPosition,
+                     end: MRMBannerAlertPosition? = nil,
                      config: MRMBannerAlertConfig = MRMBannerAlertConfig(),
                      in controller: UIViewController? = nil,
                      didShowCallback: (() -> Void)? = nil,
                      didHideCallback: (() -> Void)? = nil) {
         
-        let banner = MRMBannerAlert(title: title, message: message, start: start, config: config)
+        let banner = MRMBannerAlert(title: title, message: message, start: start, end: end, config: config)
         banner.show(in: controller, didShowCallback: didShowCallback, didHideCallback: didHideCallback)
     }
     
@@ -186,7 +195,7 @@ class MRMBannerAlert: UIView {
         UIView.animate(withDuration: self.config.popoutDuration,
                        delay: delay,
                        options: self.config.popoutAnimation) {
-            self.start.popout(banner: self, screen: self.screen, config: self.config)
+            self.end.popout(banner: self, screen: self.screen, config: self.config)
         } completion: { done in
             didHideCallback?()
         }
@@ -279,8 +288,13 @@ class MRMBannerAlert: UIView {
     /// - Returns: `Void`
     ///
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if touches.count >= 1 {
-            self.hideBanner(didHideCallback: self.hideCallback)
+        
+        if self.config.clickToHide ||
+            self.config.alertDuration == 0 {
+        
+            if touches.count >= 1 {
+                self.hideBanner(didHideCallback: self.hideCallback)
+            }
         }
     }
     
