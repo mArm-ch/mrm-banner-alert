@@ -61,6 +61,11 @@ struct MRMBannerAlertConfig {
     /// Banner's shadow radius *(default: 0.5)*
     var shadowRadius: CGFloat               = 0.5
     
+    /// Banner's border width
+    var borderWidth: CGFloat                = 1.0
+    /// Banner's border color
+    var borderColor: UIColor                = .lightGray
+    
     /// Banner's corner radius *(default: 8.0)*
     var cornerRadius: Double                = 8.0
     /// Banner's margin *(default: 12.0)*
@@ -78,7 +83,8 @@ struct MRMBannerAlertConfig {
     /// Popout animation type *(default: .curveEaseOut)*
     var popoutAnimation: UIView.AnimationOptions = .curveEaseOut
     
-    /// Alert display time *(default: 2.0)*
+    /// Alert display time. If equal or lesser to 0,
+    /// alert disappear only on click *(default: 2.0)*
     var alertDuration: TimeInterval         = 2.0
     
     

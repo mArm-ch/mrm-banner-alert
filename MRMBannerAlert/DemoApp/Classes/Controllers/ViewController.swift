@@ -18,8 +18,7 @@ class ViewController: UIViewController {
     @IBOutlet var leftButton: UIButton!
     @IBOutlet var topLeftButton: UIButton!
     
-    
-    let message: String = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent sodales sem quis lorem aliquam viverra. Aliquam non egestas ex. Donec condimentum egestas semper. Nunc a diam sagittis, semper ex a, laoreet elit."
+    let message: String = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent sodales sem quis lorem aliquam viverra. Aliquam non egestas ex."
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,12 +66,32 @@ class ViewController: UIViewController {
         self.topLeftButton.setTitle(".topLeft (.black_white)", for: .normal)
         self.topLeftButton.backgroundColor = config.backgroundColor
         self.topLeftButton.tintColor = config.titleColor
+        
+        self.topButton.layer.borderColor = UIColor.black.cgColor
+        self.topButton.layer.borderWidth = 1.0
+        self.topRightButton.layer.borderColor = UIColor.black.cgColor
+        self.topRightButton.layer.borderWidth = 1.0
+        self.rightButton.layer.borderColor = UIColor.black.cgColor
+        self.rightButton.layer.borderWidth = 1.0
+        self.bottomRightButton.layer.borderColor = UIColor.black.cgColor
+        self.bottomRightButton.layer.borderWidth = 1.0
+        self.bottomButton.layer.borderColor = UIColor.black.cgColor
+        self.bottomButton.layer.borderWidth = 1.0
+        self.bottomLeftButton.layer.borderColor = UIColor.black.cgColor
+        self.bottomLeftButton.layer.borderWidth = 1.0
+        self.leftButton.layer.borderColor = UIColor.black.cgColor
+        self.leftButton.layer.borderWidth = 1.0
+        self.topLeftButton.layer.borderColor = UIColor.black.cgColor
+        self.topLeftButton.layer.borderWidth = 1.0
     }
 
     @IBAction func top(_ sender: Any?) {
+        var config = MRMBannerAlertConfig()
+        config.alertDuration = 0
         MRMBannerAlert.show(title: ".top (theme: none)",
                             message: self.message,
-                            start: .top)
+                            start: .top,
+                            config: config)
     }
     
     @IBAction func topRight(_ sender: Any?) {
