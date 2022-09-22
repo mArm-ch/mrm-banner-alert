@@ -1,6 +1,6 @@
 # MRMBannerAlert
 
-<img align="left" alt="Version : 1.0.0" src="https://img.shields.io/badge/Version-1.0.0-lightblue.svg" /> <img align="left" alt="Swift : 5" src="https://img.shields.io/badge/Swift-5-blue.svg" /> <img align="left" alt="Licence : MIT" src="https://img.shields.io/badge/Licence-MIT-blue.svg" /> <img align="left" alt="Files : 3" src="https://img.shields.io/badge/Files-3-blue.svg" />
+<img align="left" alt="Version : 1.0.0" src="https://img.shields.io/badge/Version-1.0.0-green.svg" /> <img align="left" alt="Swift : 5" src="https://img.shields.io/badge/Swift-5-blue.svg" /> <img align="left" alt="Licence : MIT" src="https://img.shields.io/badge/Licence-MIT-blue.svg" /> <img align="left" alt="Files : 3" src="https://img.shields.io/badge/Files-3-blue.svg" />
 <br /><br />
 
 ## Introduction
