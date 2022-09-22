@@ -61,6 +61,11 @@ struct MRMBannerAlertConfig {
     /// Banner's shadow radius *(default: 0.5)*
     var shadowRadius: CGFloat               = 0.5
     
+    /// Banner's border width
+    var borderWidth: CGFloat                = 1.0
+    /// Banner's border color
+    var borderColor: UIColor                = .lightGray
+    
     /// Banner's corner radius *(default: 8.0)*
     var cornerRadius: Double                = 8.0
     /// Banner's margin *(default: 12.0)*

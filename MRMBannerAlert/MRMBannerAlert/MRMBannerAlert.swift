@@ -231,6 +231,9 @@ class MRMBannerAlert: UIView {
         self.addSubview(self.messageLabel)
         self.backgroundColor = self.config.backgroundColor
         self.layer.cornerRadius = self.config.cornerRadius
+        self.layer.borderWidth = self.config.borderWidth
+        self.layer.borderColor = self.config.borderColor.cgColor
+        
         self.layer.shadowColor = self.config.shadowColor.cgColor
         self.layer.shadowOpacity = self.config.shadowOpacity
         self.layer.shadowOffset = self.config.shadowOffset
