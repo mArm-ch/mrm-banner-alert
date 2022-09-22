@@ -86,9 +86,12 @@ class ViewController: UIViewController {
     }
 
     @IBAction func top(_ sender: Any?) {
+        var config = MRMBannerAlertConfig()
+        config.alertDuration = 0
         MRMBannerAlert.show(title: ".top (theme: none)",
                             message: self.message,
-                            start: .top)
+                            start: .top,
+                            config: config)
     }
     
     @IBAction func topRight(_ sender: Any?) {
