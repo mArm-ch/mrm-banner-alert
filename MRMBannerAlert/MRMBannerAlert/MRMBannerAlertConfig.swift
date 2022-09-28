@@ -83,6 +83,11 @@ struct MRMBannerAlertConfig {
     /// Popout animation type *(default: .curveEaseOut)*
     var popoutAnimation: UIView.AnimationOptions = .curveEaseOut
     
+    /// Fade in animation flag
+    var fadeInEnabled: Bool                 = false
+    /// Fade out animation flag
+    var fadeOutEnabled: Bool                = false
+    
     /// Alert display time. If equal or lesser to 0,
     /// alert disappear only on click *(default: 2.0)*
     var alertDuration: TimeInterval         = 2.0
