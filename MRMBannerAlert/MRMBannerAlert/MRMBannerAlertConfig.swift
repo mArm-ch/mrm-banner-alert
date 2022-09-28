@@ -91,7 +91,8 @@ struct MRMBannerAlertConfig {
     /// Alert display time. If equal or lesser to 0,
     /// alert disappear only on click *(default: 2.0)*
     var alertDuration: TimeInterval         = 2.0
-    
+    /// Flag to enable/disable click to hide
+    var clickToHide: Bool                   = true
     
     
     /// Returns a themed configuration from pre-defined themes list
