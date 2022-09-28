@@ -8,13 +8,9 @@
 MRMBannerAlert is Aa simple, easy-to-use iOS banner alert that can be displayed in multiple positions and directions. <br />
 It's Swift made and is provided with pre-defined themes, and is fully customizable.
 
-### :blue_car: Roadmap
-- [X] Infinite display time
-- [X] Hide on click
-- [X] Possibility to choose the popout direction
-- [ ] Add fadein/fadeout
+### :blue_car: Roadmap to next version
 - [ ] More themes
-- [ ] Gradient backgrounds
+
 
 ## :notebook: How to use (basic)
 
