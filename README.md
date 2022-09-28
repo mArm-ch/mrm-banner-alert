@@ -35,7 +35,7 @@ var config = MRMBannerAlertConfig()
 ```swift
 config.titleColor = .white
 config.messageColor = .white
-config.backgroundColor = .red
+config.backgroundColor = PlainBackgroundColor(color: .red)
 config.alertDuration = 3.0 
 ```
 4. Create a new `MRMBannerAlert` object, and pass it your custom config
