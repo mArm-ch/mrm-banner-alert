@@ -67,7 +67,7 @@ You can customize the layout of the banner by instantiate a config object and cu
 | messageColor  | `UIColor`  | `.black`  |    |
 | messageFont  | `UIFont`  | `.systemFont(ofSize: 16.0)`  |    |
 | messageAlignment  | `NSTextAlignment`  | `.left`  |    |
-| backgroundColor  | `UIColor`  | `.white`  |    |
+| backgroundColor  | `MRMBannerBackgroundColor`  | `PlainBackgroundColor(color: .white)`  |    |
 | shadowColor  | `UIColor`  | `.gray`  |    |
 | shadowOpacity  | `Float`  | `0.3`  |    |
 | shadowOffset  | `CGSize`  | `CGSize(width: 6.0, height: 6.0)`  |    |
@@ -84,6 +84,11 @@ You can customize the layout of the banner by instantiate a config object and cu
 | fadeInEnabled  | `Bool`  | `false`  |    |
 | fadeOutEnable  | `Bool`  | `false`  |    |
 | alertDuration  | `TimeInterval`  | `2.0`  | Time the banner is displayed   |
+
+### MRMBannerBackgroundColor
+This is a special type that allow you to pass either a plain background color or a gradient background.
+
+To achieve this, you can choose between `PlainBackgroundColor` and `GradientBackgroundColor`
 
 ## :art: Themes
 There are pre-configured themes already available in the banner config. <br />

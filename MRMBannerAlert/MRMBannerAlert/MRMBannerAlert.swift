@@ -270,7 +270,9 @@ class MRMBannerAlert: UIView {
                                       screen: self.screen)
         self.addSubview(self.titleLabel)
         self.addSubview(self.messageLabel)
-        self.backgroundColor = self.config.backgroundColor
+        
+        self.setupBackground()
+        
         self.layer.cornerRadius = self.config.cornerRadius
         self.layer.borderWidth = self.config.borderWidth
         self.layer.borderColor = self.config.borderColor.cgColor
@@ -281,6 +283,24 @@ class MRMBannerAlert: UIView {
         self.layer.shadowRadius = self.config.shadowRadius
     }
     
+    private func setupBackground() {
+        if self.config.backgroundColor.isGradient,
+           let backgroundColor = self.config.backgroundColor as? MRMBannerAlertConfig.GradientBackgroundColor {
+            
+            let gradientLayer = CAGradientLayer()
+            gradientLayer.colors = [backgroundColor.color.cgColor, backgroundColor.color2.cgColor]
+            gradientLayer.startPoint = CGPoint(x: 0.5, y: 0.0)
+            gradientLayer.endPoint = CGPoint(x: 0.0, y: 1.0)
+            gradientLayer.locations = [0, 1]
+            gradientLayer.frame = self.bounds
+            gradientLayer.cornerRadius = self.config.cornerRadius
+            
+            self.backgroundColor = backgroundColor.color
+            self.layer.insertSublayer(gradientLayer, at: 0)
+        } else {
+            self.backgroundColor = self.config.backgroundColor.color
+        }
+    }
     
     
     // --------------------------------------------------------
