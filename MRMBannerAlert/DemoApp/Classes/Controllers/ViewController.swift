@@ -63,7 +63,7 @@ class ViewController: UIViewController {
         self.leftButton.tintColor = config.titleColor
         
         config = MRMBannerAlertConfig.themed(.black_white)
-        self.topLeftButton.setTitle(".topLeft (.black_white)", for: .normal)
+        self.topLeftButton.setTitle(".topLeft (.black_white) (fade ON)", for: .normal)
         self.topLeftButton.backgroundColor = config.backgroundColor
         self.topLeftButton.tintColor = config.titleColor
         
@@ -137,10 +137,13 @@ class ViewController: UIViewController {
     }
     
     @IBAction func topLeft(_ sender: Any?) {
+        var config = MRMBannerAlertConfig.themed(.black_white)
+        config.fadeInEnabled = true
+        config.fadeOutEnabled = true
         MRMBannerAlert.show(title: ".topLeft (theme: black_white)",
                             message: self.message,
                             start: .topLeft,
-                            config: MRMBannerAlertConfig.themed(.black_white))
+                            config: config)
     }
 
 }

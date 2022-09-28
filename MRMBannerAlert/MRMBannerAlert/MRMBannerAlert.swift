@@ -133,14 +133,6 @@ class MRMBannerAlert: UIView {
               didShowCallback: (() -> Void)? = nil,
               didHideCallback: (() -> Void)? = nil) {
         
-        // Create alert elements
-        self.createTitleLabel()
-        self.createMessageLabel()
-        
-        // Calculate final height
-        self.size.height = self.titleLabel.frame.height + self.config.padding +
-                           self.messageLabel.frame.height + (2 * self.config.padding)
-        
         // Setup view
         self.setupView()
         
@@ -152,17 +144,29 @@ class MRMBannerAlert: UIView {
         
         // Display the banner
         if let parentController = parentController {
+            
+            if self.config.fadeInEnabled {
+                self.layer.opacity = 0.0
+            }
             parentController.view.addSubview(self)
+            
+            // Show the banner
             UIView.animate(withDuration: self.config.popinDuration,
                            delay: 0.0,
                            options: self.config.popinAnimation) {
                 self.start.popin(banner: self, screen: self.screen, config: self.config)
+                if self.config.fadeInEnabled {
+                    self.layer.opacity = 1.0
+                }
             } completion: { done in
                 didShowCallback?()
                 if self.config.alertDuration > 0 {
+                    
+                    // Hide the banner
                     self.hideBanner(delay: self.config.alertDuration,
                                     didHideCallback: didHideCallback)
                 } else {
+                    // Save callback for futur hide
                     self.hideCallback = didHideCallback
                 }
             }
@@ -186,6 +190,9 @@ class MRMBannerAlert: UIView {
         UIView.animate(withDuration: self.config.popoutDuration,
                        delay: delay,
                        options: self.config.popoutAnimation) {
+            if self.config.fadeOutEnabled {
+                self.layer.opacity = 0.0
+            }
             self.start.popout(banner: self, screen: self.screen, config: self.config)
         } completion: { done in
             didHideCallback?()
@@ -196,6 +203,29 @@ class MRMBannerAlert: UIView {
     
     // --------------------------------------------------------
     // MARK: - Setup methods
+    
+    /// Setup the banner view itself
+    ///
+    /// - Author: David Ansermot
+    ///
+    /// - Important: `private`
+    ///
+    /// - Returns: `Void`
+    ///
+    private func setupView() {
+        
+        // Create alert elements
+        self.createTitleLabel()
+        self.createMessageLabel()
+        
+        // Calculate final height
+        self.size.height = self.titleLabel.frame.height + self.config.padding +
+                           self.messageLabel.frame.height + (2 * self.config.padding)
+        
+        // Configure the banner root view
+        self.createBannerView(titleLabel: self.titleLabel,
+                              messageLabel: self.messageLabel)
+    }
     
     /// Create the title label and setup
     ///
@@ -239,20 +269,20 @@ class MRMBannerAlert: UIView {
         self.messageLabel.sizeToFit()
     }
     
-    /// Setup the banner view itself
-    ///
-    /// - Author: David Ansermot
+    /// Create the root banner view
     ///
     /// - Important: `private`
     ///
+    /// - Parameter titleLabel: The label for the title
+    /// - Parameter messageLabel: The label for the messages
     /// - Returns: `Void`
     ///
-    private func setupView() {
+    private func createBannerView(titleLabel: UILabel, messageLabel: UILabel) {
         self.frame = self.start.frame(margin: self.config.margin,
                                       bannerSize: self.size,
                                       screen: self.screen)
-        self.addSubview(self.titleLabel)
-        self.addSubview(self.messageLabel)
+        self.addSubview(titleLabel)
+        self.addSubview(messageLabel)
         self.backgroundColor = self.config.backgroundColor
         self.layer.cornerRadius = self.config.cornerRadius
         self.layer.borderWidth = self.config.borderWidth
@@ -283,6 +313,7 @@ class MRMBannerAlert: UIView {
             self.hideBanner(didHideCallback: self.hideCallback)
         }
     }
+    
     
     
     // --------------------------------------------------------
