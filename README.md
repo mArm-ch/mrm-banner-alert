@@ -11,7 +11,7 @@ It's Swift made and is provided with pre-defined themes, and is fully customizab
 ### :blue_car: Roadmap
 - [X] Infinite display time
 - [X] Hide on click
-- [ ] Possibility to choose the popout direction
+- [X] Possibility to choose the popout direction
 - [ ] Add fadein/fadeout
 - [ ] More themes
 - [ ] Gradient backgrounds
