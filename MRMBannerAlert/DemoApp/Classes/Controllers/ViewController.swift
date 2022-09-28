@@ -29,42 +29,42 @@ class ViewController: UIViewController {
         
         var config = MRMBannerAlertConfig()
         self.topButton.setTitle(".top (no theme)", for: .normal)
-        self.topButton.backgroundColor = config.backgroundColor
+        self.topButton.backgroundColor = config.backgroundColor.color
         self.topButton.tintColor = config.titleColor
         
         config = MRMBannerAlertConfig.themed(.white_darkGray)
         self.topRightButton.setTitle(".topRight (.white_darkGray)", for: .normal)
-        self.topRightButton.backgroundColor = config.backgroundColor
+        self.topRightButton.backgroundColor = config.backgroundColor.color
         self.topRightButton.tintColor = config.titleColor
         
         config = MRMBannerAlertConfig.themed(.white_gray)
         self.rightButton.setTitle(".right (.white_gray)", for: .normal)
-        self.rightButton.backgroundColor = config.backgroundColor
+        self.rightButton.backgroundColor = config.backgroundColor.color
         self.rightButton.tintColor = config.titleColor
         
         config = MRMBannerAlertConfig.themed(.white_lightGray)
         self.bottomRightButton.setTitle(".bottomRight (.white_lightGray)", for: .normal)
-        self.bottomRightButton.backgroundColor = config.backgroundColor
+        self.bottomRightButton.backgroundColor = config.backgroundColor.color
         self.bottomRightButton.tintColor = config.titleColor
         
         config = MRMBannerAlertConfig.themed(.darkGray_white)
         self.bottomButton.setTitle(".bottom (.darkGray_white)", for: .normal)
-        self.bottomButton.backgroundColor = config.backgroundColor
+        self.bottomButton.backgroundColor = config.backgroundColor.color
         self.bottomButton.tintColor = config.titleColor
         
         config = MRMBannerAlertConfig.themed(.gray_white)
         self.bottomLeftButton.setTitle(".bottomLeft (.gray_white)", for: .normal)
-        self.bottomLeftButton.backgroundColor = config.backgroundColor
+        self.bottomLeftButton.backgroundColor = config.backgroundColor.color
         self.bottomLeftButton.tintColor = config.titleColor
         
         config = MRMBannerAlertConfig.themed(.lightGray_white)
         self.leftButton.setTitle(".left (.lightGray_white)", for: .normal)
-        self.leftButton.backgroundColor = config.backgroundColor
+        self.leftButton.backgroundColor = config.backgroundColor.color
         self.leftButton.tintColor = config.titleColor
         
         config = MRMBannerAlertConfig.themed(.black_white)
-        self.topLeftButton.setTitle(".topLeft (.black_white)", for: .normal)
-        self.topLeftButton.backgroundColor = config.backgroundColor
+        self.topLeftButton.setTitle(".topLeft (.black_white) (fade ON)", for: .normal)
+        self.topLeftButton.backgroundColor = config.backgroundColor.color
         self.topLeftButton.tintColor = config.titleColor
         
         self.topButton.layer.borderColor = UIColor.black.cgColor
@@ -89,7 +89,7 @@ class ViewController: UIViewController {
         var config = MRMBannerAlertConfig()
         config.alertDuration = 0
         MRMBannerAlert.show(title: ".top (theme: none)",
-                            message: self.message,
+                            message: "Click to dismiss me, else i'll stay here forever",
                             start: .top,
                             config: config)
     }
@@ -116,10 +116,12 @@ class ViewController: UIViewController {
     }
     
     @IBAction func bottom(_ sender: Any?) {
+        var config = MRMBannerAlertConfig.themed(.darkGray_white)
+        config.backgroundColor = MRMBannerAlertConfig.GradientBackgroundColor(color: .darkGray, color2: .white)
         MRMBannerAlert.show(title: ".bottom (theme: darkGray_white)",
                             message: self.message,
                             start: .bottom,
-                            config: MRMBannerAlertConfig.themed(.darkGray_white))
+                            config: config)
     }
     
     @IBAction func bottomLeft(_ sender: Any?) {
@@ -133,14 +135,17 @@ class ViewController: UIViewController {
         MRMBannerAlert.show(title: ".left (theme: grey_white)",
                             message: self.message,
                             start: .left,
-                            config: MRMBannerAlertConfig.themed(.lightGray_white))
+                            end: .right)
     }
     
     @IBAction func topLeft(_ sender: Any?) {
+        var config = MRMBannerAlertConfig.themed(.black_white)
+        config.fadeInEnabled = true
+        config.fadeOutEnabled = true
         MRMBannerAlert.show(title: ".topLeft (theme: black_white)",
                             message: self.message,
                             start: .topLeft,
-                            config: MRMBannerAlertConfig.themed(.black_white))
+                            config: config)
     }
 
 }

@@ -43,6 +43,9 @@ class MRMBannerAlert: UIView {
         }
     }
     
+    /// The end position of the banner
+    ///
+    var end: MRMBannerAlertPosition
     
     
     // --------------------------------------------------------
@@ -56,18 +59,23 @@ class MRMBannerAlert: UIView {
     /// - Parameter title: The title displayed in the banner
     /// - Parameter message: The message displayed in the banner
     /// - Parameter start: The start position of the banner (off scene)
+    /// - Parameter end: The end position of the banner (off scene)
     /// - Parameter config: Configuration of the banner *(default: `MRMBannerAlertConfig()`)*
     /// - Returns: `MRMBannerAlert`
     ///
     init(title: String,
          message: String,
          start: MRMBannerAlertPosition,
+         end: MRMBannerAlertPosition? = nil,
          config: MRMBannerAlertConfig = MRMBannerAlertConfig()) {
     
         self.title = title
         self.message = message
         self.config = config
         self.start = start
+        
+        // If end is not set, copy from start
+        self.end = end ?? start
         
         // Calculate some sizes
         self.screen = UIScreen.main.bounds
@@ -110,12 +118,13 @@ class MRMBannerAlert: UIView {
     static func show(title: String,
                      message: String,
                      start: MRMBannerAlertPosition,
+                     end: MRMBannerAlertPosition? = nil,
                      config: MRMBannerAlertConfig = MRMBannerAlertConfig(),
                      in controller: UIViewController? = nil,
                      didShowCallback: (() -> Void)? = nil,
                      didHideCallback: (() -> Void)? = nil) {
         
-        let banner = MRMBannerAlert(title: title, message: message, start: start, config: config)
+        let banner = MRMBannerAlert(title: title, message: message, start: start, end: end, config: config)
         banner.show(in: controller, didShowCallback: didShowCallback, didHideCallback: didHideCallback)
     }
     
@@ -152,10 +161,17 @@ class MRMBannerAlert: UIView {
         
         // Display the banner
         if let parentController = parentController {
+            // Fade in effect
+            if self.config.fadeInEnabled { self.layer.opacity = 0.0 }
+            
+            // Adds banner and show
             parentController.view.addSubview(self)
             UIView.animate(withDuration: self.config.popinDuration,
                            delay: 0.0,
                            options: self.config.popinAnimation) {
+                // Fade in effect
+                if self.config.fadeInEnabled { self.layer.opacity = 1.0 }
+                // Animation
                 self.start.popin(banner: self, screen: self.screen, config: self.config)
             } completion: { done in
                 didShowCallback?()
@@ -186,7 +202,8 @@ class MRMBannerAlert: UIView {
         UIView.animate(withDuration: self.config.popoutDuration,
                        delay: delay,
                        options: self.config.popoutAnimation) {
-            self.start.popout(banner: self, screen: self.screen, config: self.config)
+            if self.config.fadeOutEnabled { self.layer.opacity = 0.0 }
+            self.end.popout(banner: self, screen: self.screen, config: self.config)
         } completion: { done in
             didHideCallback?()
         }
@@ -253,7 +270,9 @@ class MRMBannerAlert: UIView {
                                       screen: self.screen)
         self.addSubview(self.titleLabel)
         self.addSubview(self.messageLabel)
-        self.backgroundColor = self.config.backgroundColor
+        
+        self.setupBackground()
+        
         self.layer.cornerRadius = self.config.cornerRadius
         self.layer.borderWidth = self.config.borderWidth
         self.layer.borderColor = self.config.borderColor.cgColor
@@ -264,6 +283,24 @@ class MRMBannerAlert: UIView {
         self.layer.shadowRadius = self.config.shadowRadius
     }
     
+    private func setupBackground() {
+        if self.config.backgroundColor.isGradient,
+           let backgroundColor = self.config.backgroundColor as? MRMBannerAlertConfig.GradientBackgroundColor {
+            
+            let gradientLayer = CAGradientLayer()
+            gradientLayer.colors = [backgroundColor.color.cgColor, backgroundColor.color2.cgColor]
+            gradientLayer.startPoint = CGPoint(x: 0.5, y: 0.0)
+            gradientLayer.endPoint = CGPoint(x: 0.0, y: 1.0)
+            gradientLayer.locations = [0, 1]
+            gradientLayer.frame = self.bounds
+            gradientLayer.cornerRadius = self.config.cornerRadius
+            
+            self.backgroundColor = backgroundColor.color
+            self.layer.insertSublayer(gradientLayer, at: 0)
+        } else {
+            self.backgroundColor = self.config.backgroundColor.color
+        }
+    }
     
     
     // --------------------------------------------------------
@@ -279,8 +316,13 @@ class MRMBannerAlert: UIView {
     /// - Returns: `Void`
     ///
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if touches.count >= 1 {
-            self.hideBanner(didHideCallback: self.hideCallback)
+        
+        if self.config.clickToHide ||
+            self.config.alertDuration == 0 {
+        
+            if touches.count >= 1 {
+                self.hideBanner(didHideCallback: self.hideCallback)
+            }
         }
     }
     
