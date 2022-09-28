@@ -144,17 +144,29 @@ class MRMBannerAlert: UIView {
         
         // Display the banner
         if let parentController = parentController {
+            
+            if self.config.fadeInEnabled {
+                self.layer.opacity = 0.0
+            }
             parentController.view.addSubview(self)
+            
+            // Show the banner
             UIView.animate(withDuration: self.config.popinDuration,
                            delay: 0.0,
                            options: self.config.popinAnimation) {
                 self.start.popin(banner: self, screen: self.screen, config: self.config)
+                if self.config.fadeInEnabled {
+                    self.layer.opacity = 1.0
+                }
             } completion: { done in
                 didShowCallback?()
                 if self.config.alertDuration > 0 {
+                    
+                    // Hide the banner
                     self.hideBanner(delay: self.config.alertDuration,
                                     didHideCallback: didHideCallback)
                 } else {
+                    // Save callback for futur hide
                     self.hideCallback = didHideCallback
                 }
             }
@@ -178,6 +190,9 @@ class MRMBannerAlert: UIView {
         UIView.animate(withDuration: self.config.popoutDuration,
                        delay: delay,
                        options: self.config.popoutAnimation) {
+            if self.config.fadeOutEnabled {
+                self.layer.opacity = 0.0
+            }
             self.start.popout(banner: self, screen: self.screen, config: self.config)
         } completion: { done in
             didHideCallback?()
