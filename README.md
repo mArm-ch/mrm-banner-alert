@@ -1,6 +1,6 @@
 # MRMBannerAlert
 
-<img align="left" alt="Version : 1.1.0" src="https://img.shields.io/badge/Version-1.1.0-green.svg" /> <img align="left" alt="Swift : 5" src="https://img.shields.io/badge/Swift-5-blue.svg" /> <img align="left" alt="Licence : MIT" src="https://img.shields.io/badge/Licence-MIT-blue.svg" /> <img align="left" alt="Files : 3" src="https://img.shields.io/badge/Files-3-blue.svg" />
+<img align="left" alt="Version : 1.1.1" src="https://img.shields.io/badge/Version-1.1.1-green.svg" /> <img align="left" alt="Swift : 5" src="https://img.shields.io/badge/Swift-5-blue.svg" /> <img align="left" alt="Licence : MIT" src="https://img.shields.io/badge/Licence-MIT-blue.svg" /> <img align="left" alt="Files : 3" src="https://img.shields.io/badge/Files-3-blue.svg" />
 <br /><br />
 
 ## Introduction
@@ -110,6 +110,29 @@ case gray_white
 case lightGray_white
 /// Black background with white texts
 case black_white
+/// Dark gray gradient background with white texts
+case gradientDarkGray_white
+/// Light gray gradient background with black texts
+case gradientLightGray_black
+
+/// White background with dark gray texts (without shadow)
+case white_darkGray_noShadow
+/// White background with gray texts (without shadow)
+case white_gray_noShadow
+/// White background with light gray texts (without shadow)
+case white_lightGray_noShadow
+/// Dark gray background with white texts (without shadow)
+case darkGray_white_noShadow
+/// Gray background with white texts (without shadow)
+case gray_white_noShadow
+/// Light gray background with white texts (without shadow)
+case lightGray_white_noShadow
+/// Black background with white texts (without shadow)
+case black_white_noShadow
+/// Dark gray gradient background with white texts (without shadow)
+case gradientDarkGray_white_noShadow
+/// Light gray gradient background with black texts (without shadow)
+case gradientLightGray_black_noShadow
 ```
 
 ## :copyright: License
