@@ -31,25 +31,6 @@ struct MRMBannerAlertConfig {
         var end: CGPoint = CGPoint(x: 0.5, y: 1.0)
     }
     
-    /// Pre-defined available themes enum
-    ///
-    public enum Theme {
-        /// White background with dark gray texts
-        case white_darkGray
-        /// White background with gray texts
-        case white_gray
-        /// White background with light gray texts
-        case white_lightGray
-        /// Dark gray background with white texts
-        case darkGray_white
-        /// Gray background with white texts
-        case gray_white
-        /// Light gray background with white texts
-        case lightGray_white
-        /// Black background with white texts
-        case black_white
-    }
-    
     /// Default initializer
     public init() {}
     
@@ -73,6 +54,8 @@ struct MRMBannerAlertConfig {
     /// Banner's background color *(default: `PlainBackgroundColor(.white)`)*
     var backgroundColor: MRMBannerBackgroundColor   = PlainBackgroundColor(color: .white)
     
+    /// Enable/disable shadow *(default: true)*
+    var shadowEnabled: Bool                         = true
     /// Banner's shadow color *(default: .gray)*
     var shadowColor: UIColor                        = .gray
     /// Banner's shadow opacity *(default: 0.3)*
@@ -115,6 +98,46 @@ struct MRMBannerAlertConfig {
     /// Flag to enable/disable click to hide
     var clickToHide: Bool                           = true
     
+    /// Pre-defined available themes enum
+    ///
+    public enum Theme {
+        /// White background with dark gray texts
+        case white_darkGray
+        /// White background with gray texts
+        case white_gray
+        /// White background with light gray texts
+        case white_lightGray
+        /// Dark gray background with white texts
+        case darkGray_white
+        /// Gray background with white texts
+        case gray_white
+        /// Light gray background with white texts
+        case lightGray_white
+        /// Black background with white texts
+        case black_white
+        /// Dark gray gradient background with white texts
+        case gradientDarkGray_white
+        /// Light gray gradient background with black texts
+        case gradientLightGray_black
+        /// White background with dark gray texts (without shadow)
+        case white_darkGray_noShadow
+        /// White background with gray texts (without shadow)
+        case white_gray_noShadow
+        /// White background with light gray texts (without shadow)
+        case white_lightGray_noShadow
+        /// Dark gray background with white texts (without shadow)
+        case darkGray_white_noShadow
+        /// Gray background with white texts (without shadow)
+        case gray_white_noShadow
+        /// Light gray background with white texts (without shadow)
+        case lightGray_white_noShadow
+        /// Black background with white texts (without shadow)
+        case black_white_noShadow
+        /// Dark gray gradient background with white texts (without shadow)
+        case gradientDarkGray_white_noShadow
+        /// Light gray gradient background with black texts (without shadow)
+        case gradientLightGray_black_noShadow
+    }
     
     /// Returns a themed configuration from pre-defined themes list
     ///
@@ -154,6 +177,57 @@ struct MRMBannerAlertConfig {
             config.titleColor = .white
             config.messageColor = .white
             config.backgroundColor = PlainBackgroundColor(color: .black)
+        case .gradientDarkGray_white:
+            config.titleColor = .white
+            config.messageColor = .white
+            config.backgroundColor = GradientBackgroundColor(color: .black, color2: .darkGray)
+        case .gradientLightGray_black:
+            config.titleColor = .black
+            config.messageColor = .black
+            config.backgroundColor = GradientBackgroundColor(color: .lightGray, color2: .white)
+        case .white_darkGray_noShadow:
+            config.titleColor = .darkGray
+            config.messageColor = .darkGray
+            config.shadowEnabled = false
+        case .white_gray_noShadow:
+            config.titleColor = .gray
+            config.messageColor = .gray
+            config.shadowEnabled = false
+        case .white_lightGray_noShadow:
+            config.titleColor = .lightGray
+            config.messageColor = .lightGray
+            config.backgroundColor = PlainBackgroundColor(color: .white)
+            config.shadowEnabled = false
+        case .darkGray_white_noShadow:
+            config.titleColor = .white
+            config.messageColor = .white
+            config.backgroundColor = PlainBackgroundColor(color: .darkGray)
+            config.shadowEnabled = false
+        case .gray_white_noShadow:
+            config.titleColor = .white
+            config.messageColor = .white
+            config.backgroundColor = PlainBackgroundColor(color: .gray)
+            config.shadowEnabled = false
+        case .lightGray_white_noShadow:
+            config.titleColor = .white
+            config.messageColor = .white
+            config.backgroundColor = PlainBackgroundColor(color: .lightGray)
+            config.shadowEnabled = false
+        case .black_white_noShadow:
+            config.titleColor = .white
+            config.messageColor = .white
+            config.backgroundColor = PlainBackgroundColor(color: .black)
+            config.shadowEnabled = false
+        case .gradientDarkGray_white_noShadow:
+            config.titleColor = .white
+            config.messageColor = .white
+            config.backgroundColor = GradientBackgroundColor(color: .black, color2: .darkGray)
+            config.shadowEnabled = false
+        case .gradientLightGray_black_noShadow:
+            config.titleColor = .black
+            config.messageColor = .black
+            config.backgroundColor = GradientBackgroundColor(color: .lightGray, color2: .white)
+            config.shadowEnabled = false
         }
     
         return config

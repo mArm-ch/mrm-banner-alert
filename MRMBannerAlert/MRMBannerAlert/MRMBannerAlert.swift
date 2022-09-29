@@ -290,10 +290,12 @@ class MRMBannerAlert: UIView {
         self.layer.borderWidth = self.config.borderWidth
         self.layer.borderColor = self.config.borderColor.cgColor
         
-        self.layer.shadowColor = self.config.shadowColor.cgColor
-        self.layer.shadowOpacity = self.config.shadowOpacity
-        self.layer.shadowOffset = self.config.shadowOffset
-        self.layer.shadowRadius = self.config.shadowRadius
+        if self.config.shadowEnabled {
+            self.layer.shadowColor = self.config.shadowColor.cgColor
+            self.layer.shadowOpacity = self.config.shadowOpacity
+            self.layer.shadowOffset = self.config.shadowOffset
+            self.layer.shadowRadius = self.config.shadowRadius
+        }
     }
     
     /// Setup the correct background
