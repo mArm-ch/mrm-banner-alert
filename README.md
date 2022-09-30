@@ -10,6 +10,7 @@ It's Swift made and is provided with pre-defined themes, and is fully customizab
 
 ### :blue_car: Roadmap to next version
 - [ ] More themes
+- [ ] Improving gradient brackground customization possibilities
 
 
 ## :notebook: How to use (basic)
