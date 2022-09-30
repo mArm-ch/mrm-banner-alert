@@ -9,9 +9,9 @@ MRMBannerAlert is Aa simple, easy-to-use iOS banner alert that can be displayed 
 It's Swift made and is provided with pre-defined themes, and is fully customizable.
 
 ### :blue_car: Roadmap to next version
-- [ ] More themes
+- [ ] Improving README (themes section add images)
 - [ ] Improving gradient brackground customization possibilities
-
+- [ ] More themes
 
 ## :notebook: How to use (basic)
 
